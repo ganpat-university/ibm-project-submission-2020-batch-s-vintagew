@@ -1,0 +1,287 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap");
+:root {
+    --space-root: 1rem;
+    --space-xs: calc(var(--space-root) / 2);
+    --space-s: calc(var(--space-root) / 1.5);
+    --space-m: var(--space-root);
+    --space-l: calc(var(--space-root) * 1.5);
+    --space-xl: calc(var(--space-root) * 2);
+    --color-primary: mediumslateblue;
+    --color-secondary: black;
+    --color-tertiary: hotpink;
+    --base-border-radius: 0.25rem;
+    --ease: cubic-bezier(0.075, 0.82, 0.165, 1);
+    --duration: 350ms;
+    --font-family: "Roboto", sans-serif;
+    --font-size: 1.25rem;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    display: grid;
+    place-items: center;
+    margin: 0;
+    height: 100vh;
+    padding: var(--space-m);
+    font-size: var(--font-size);
+    font-family: var(--font-family);
+    line-height: 1.2;
+    overflow: hidden; /* Ensures the video doesn't overflow the body */
+}
+
+video {
+    position: fixed; /* Fixed positioning to cover the entire body */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the video covers the entire body */
+    z-index: -1; /* Puts the video behind other content */
+}
+
+
+a {
+    color: var(--color-primary);
+}
+a:focus {
+    color: var(--color-secondary);
+}
+
+h2 {
+    font-weight: 700;
+    font-size: calc(var(--font-size) * 1.5);
+}
+
+.form {
+    position: relative;
+    width: 100%;
+    max-width: 450px;
+    margin: 0 auto;
+    transform: skewY(-5deg) translateY(10%) scale(0.94);
+    transition: box-shadow var(--duration) var(--ease), transform var(--duration) var(--ease);
+}
+.form:before, .form:after {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+    background-color: #ebebeb;
+    width: 25%;
+    height: 100%;
+    transition: background-color var(--duration) var(--ease), transform var(--duration) var(--ease);
+}
+.form:before {
+    top: 0;
+    right: calc(100% - 1px);
+    transform-origin: 100% 100%;
+    transform: skewY(-35deg) scaleX(-1);
+    z-index: -1;
+}
+.form:after {
+    top: 0;
+    left: calc(100% - 1px);
+    transform-origin: 0 0;
+    transform: skewY(-35deg) scaleX(-1);
+    z-index: 2;
+}
+.form:hover, .form:focus-within {
+    transform: scale(1.0001);
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1);
+}
+.form:hover:before, .form:hover:after, .form:focus-within:before, .form:focus-within:after {
+    background-color: white;
+    transform: skewY(0);
+}
+
+.form-inner {
+    padding: var(--space-xl);
+    background-color: white;
+    z-index: 1;
+}
+.form-inner > * + * {
+    margin-top: var(--space-xl);
+}
+
+.input-wrapper:focus-within label {
+    color: var(--color-secondary);
+}
+.input-wrapper:focus-within .icon {
+    background-color: var(--color-secondary);
+}
+.input-wrapper:focus-within input {
+    border-color: var(--color-secondary);
+}
+.input-wrapper + .input-wrapper {
+    margin-top: var(--space-l);
+}
+
+.input-group {
+    position: relative;
+}
+.input-group input {
+    border-radius: var(--base-border-radius);
+    padding-left: calc(var(--space-s) + 60px);
+}
+.input-group .icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    border-top-left-radius: var(--base-border-radius);
+    border-bottom-left-radius: var(--base-border-radius);
+    pointer-events: none;
+}
+
+label {
+    font-size: calc(var(--font-size) / 1.65);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.065rem;
+    display: block;
+    margin-bottom: var(--space-xs);
+    color: var(--color-primary);
+}
+
+.icon {
+    display: flex;
+    align-items: center;
+    flex: 0 1 auto;
+    padding: var(--space-m);
+    background-color: var(--color-primary);
+}
+.icon svg {
+    width: 1.25em;
+    height: 1.25em;
+    fill: white;
+    pointer-events: none;
+    -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+    transition: transform var(--duration) var(--ease);
+}
+
+input {
+    flex: 1 1 0;
+    width: 100%;
+    outline: none;
+    padding: var(--space-m);
+    font-size: var(--font-size);
+    font-family: var(--font-family);
+    color: var(--color-secondary);
+    border: 2px solid var(--color-primary);
+}
+input:focus {
+    color: var(--color-primary);
+}
+
+.btn-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.btn-group > * + * {
+    margin-left: var(--space-s);
+}
+
+.btn {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    outline: none;
+    padding: var(--space-m) var(--space-l);
+    cursor: pointer;
+    border: 2px solid transparent;
+    border-radius: var(--base-border-radius);
+}
+
+.btn--primary {
+    font-size: calc(var(--font-size) / 1.65);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.065rem;
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: white;
+}
+.btn--primary:focus {
+    background-color: var(--color-secondary);
+    border-color: var(--color-secondary);
+}
+
+.btn--text{
+    font-size: calc(var(--font-size) / 1.5);
+    padding: 0;
+}
+.google-login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.google-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+}
+    </style>
+</head>
+<body>
+    <video autoplay loop muted playbackRate="0.1">
+    <source src="{{ url_for('static', filename='login_video.mp4') }}" type="video/mp4">.
+    </video>
+    
+<form class="form" onsubmit="return false" autocomplete="off">
+    <div class="form-inner">
+        <h2>Admin Login</h2>
+        <div class="input-wrapper">
+        <label for="login-username">Username</label>
+        <div class="input-group"><span class="icon">
+            <svg viewBox="0 0 24 24">
+                <path d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z"></path>
+            </svg></span>
+            <input id="login-username" type="text" data-lpignore="true"/>
+        </div>
+        </div>
+        <div class="input-wrapper">
+        <label for="login-password">Password</label>
+        <div class="input-group"><span class="icon">
+            <svg viewBox="0 0 24 24">
+                <path d="M11.83,1.73C8.43,1.79 6.23,3.32 6.23,3.32C5.95,3.5 5.88,3.91 6.07,4.19C6.27,4.5 6.66,4.55 6.96,4.34C6.96,4.34 11.27,1.15 17.46,4.38C17.75,4.55 18.14,4.45 18.31,4.15C18.5,3.85 18.37,3.47 18.03,3.28C16.36,2.4 14.78,1.96 13.36,1.8C12.83,1.74 12.32,1.72 11.83,1.73M12.22,4.34C6.26,4.26 3.41,9.05 3.41,9.05C3.22,9.34 3.3,9.72 3.58,9.91C3.87,10.1 4.26,10 4.5,9.68C4.5,9.68 6.92,5.5 12.2,5.59C17.5,5.66 19.82,9.65 19.82,9.65C20,9.94 20.38,10.04 20.68,9.87C21,9.69 21.07,9.31 20.9,9C20.9,9 18.15,4.42 12.22,4.34M11.5,6.82C9.82,6.94 8.21,7.55 7,8.56C4.62,10.53 3.1,14.14 4.77,19C4.88,19.33 5.24,19.5 5.57,19.39C5.89,19.28 6.07,18.92 5.95,18.6V18.6C4.41,14.13 5.78,11.2 7.8,9.5C9.77,7.89 13.25,7.5 15.84,9.1C17.11,9.9 18.1,11.28 18.6,12.64C19.11,14 19.08,15.32 18.67,15.94C18.25,16.59 17.4,16.83 16.65,16.64C15.9,16.45 15.29,15.91 15.26,14.77C15.23,13.06 13.89,12 12.5,11.84C11.16,11.68 9.61,12.4 9.21,14C8.45,16.92 10.36,21.07 14.78,22.45C15.11,22.55 15.46,22.37 15.57,22.04C15.67,21.71 15.5,21.35 15.15,21.25C11.32,20.06 9.87,16.43 10.42,14.29C10.66,13.33 11.5,13 12.38,13.08C13.25,13.18 14,13.7 14,14.79C14.05,16.43 15.12,17.54 16.34,17.85C17.56,18.16 18.97,17.77 19.72,16.62C20.5,15.45 20.37,13.8 19.78,12.21C19.18,10.61 18.07,9.03 16.5,8.04C14.96,7.08 13.19,6.7 11.5,6.82M11.86,9.25V9.26C10.08,9.32 8.3,10.24 7.28,12.18C5.96,14.67 6.56,17.21 7.44,19.04C8.33,20.88 9.54,22.1 9.54,22.1C9.78,22.35 10.17,22.35 10.42,22.11C10.67,21.87 10.67,21.5 10.43,21.23C10.43,21.23 9.36,20.13 8.57,18.5C7.78,16.87 7.3,14.81 8.38,12.77C9.5,10.67 11.5,10.16 13.26,10.67C15.04,11.19 16.53,12.74 16.5,15.03C16.46,15.38 16.71,15.68 17.06,15.7C17.4,15.73 17.7,15.47 17.73,15.06C17.79,12.2 15.87,10.13 13.61,9.47C13.04,9.31 12.45,9.23 11.86,9.25M12.08,14.25C11.73,14.26 11.46,14.55 11.47,14.89C11.47,14.89 11.5,16.37 12.31,17.8C13.15,19.23 14.93,20.59 18.03,20.3C18.37,20.28 18.64,20 18.62,19.64C18.6,19.29 18.3,19.03 17.91,19.06C15.19,19.31 14.04,18.28 13.39,17.17C12.74,16.07 12.72,14.88 12.72,14.88C12.72,14.53 12.44,14.25 12.08,14.25Z"></path>
+            </svg></span>
+            <input id="login-password" type="password" data-lpignore="true"/>
+        </div>
+        </div>
+        <div class="btn-group">
+        <button class="btn btn--primary">Sign in</button><a class="btn--text" href="#0">Forgot password?</a>
+    
+        </div>
+        <div class="google-login">
+            <a href="{{ authorization_url }}">
+        <img class="google-icon" src="data:image/png;base64,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" alt="Google Icon">
+      </a>
+        </div>
+        <center>
+        <a class="btn--text" href="#0">Sin up</a>
+    </center>
+    </div>
+    </form>
+</body>
+</html>
+
+

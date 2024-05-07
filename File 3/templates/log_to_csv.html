@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        
+        .container {
+            width: 50%;
+            margin: 50px auto;
+            text-align: center;
+        }
+        
+        h1 {
+            margin-bottom: 20px;
+        }
+        
+        form {
+            margin-top: 20px;
+        }
+        
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background-color: #0056b3;
+        }
+        
+    </style>
+    <meta charset="UTF-8">
+    <title>Upload Log File</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Upload a Log File</h1>
+        <h1>Upload Log File</h1>
+        <form method="POST" enctype="multipart/form-data" action="/log_to_csv">
+            <input type="file" name="file" accept=".log">
+            <button type="submit">Upload</button>
+        </form>
+    </div>
+</body>
+</html>

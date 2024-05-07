@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSV to MongoDB</title>
+</head>
+<body>
+    <h1>Upload CSV File</h1>
+    <form id="uploadForm" action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" accept=".csv" required>
+        <button type="submit">Upload</button>
+    </form>
+
+    <script>
+        document.getElementById("uploadForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+            var form = event.target;
+            fetch(form.action, {
+                method: form.method,
+                body: new FormData(form),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === "success") {
+                    alert("File uploaded successfully!");
+                    form.reset();
+                } else {
+                    alert("File upload failed!"); 
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert("An error occurred during file upload.");
+            });
+        });
+    </script>
+</body>
+</html>

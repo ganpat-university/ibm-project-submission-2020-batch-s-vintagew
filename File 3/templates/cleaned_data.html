@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cleaned Data</title>
+</head>
+<body>
+    <h1>Cleaned Data for Collection: {{ collection_name }}</h1>
+    <form action="{{ url_for('model_selection_and_visualization', collection_name=collection_name) }}" method="post">
+        <label for="model_type">Select Model Type:</label>
+        <select id="model_type" name="model_type">
+            <option value="classification">Classification</option>
+            <option value="regression">Regression</option>
+        </select>
+        <br>
+        <label for="target_column">Select Target Column:</label>
+        <select id="target_column" name="target_column">
+            {% for column in df_cleaned.columns %}
+                <option value="{{ column }}">{{ column }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <input type="submit" value="Select Model and Visualize Data">
+    </form>
+    <br>
+    <h2>Cleaned Data Table:</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                {% for column in df_cleaned.columns %}
+                    <th>{{ column }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for index, row in df_cleaned.iterrows() %}
+                <tr>
+                    {% for value in row %}
+                        <td>{{ value }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

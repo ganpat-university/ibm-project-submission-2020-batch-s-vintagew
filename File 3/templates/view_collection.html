@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Collection</title>
+</head>
+<body>
+    <h1>Collection: {{ collection_name }}</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                {% for column in df.columns %}
+                    <th>{{ column }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for index, row in df.iterrows() %}
+                <tr>
+                    {% for value in row %}
+                        <td>{{ value }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <br>
+    <h2>Summary Statistics:</h2>
+    {{ df_summary.to_html() | safe }}
+    <br>
+    <form action="{{ url_for('clean_data_route', collection_name=collection_name) }}" method="post">
+        <select name="clean_option">
+            <option value="drop_null">Drop Null Values</option>
+            <option value="fill_mean">Fill with Mean</option>
+            <option value="fill_std">Fill with Standard Deviation</option>
+        </select>
+        <input type="submit" value="Clean Data">
+    </form>
+</body>
+</html>
